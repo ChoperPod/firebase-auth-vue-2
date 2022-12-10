@@ -1,12 +1,26 @@
 <template>
-  <div id="app">
+  <div id="app" class="container mt-2">
     <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/" v-if="existeUsuario" class="btn btn-outline-success me-2">Inicio</router-link>
+      <router-link to="/Registro" v-if="!existeUsuario" class="btn btn-outline-success me-2">Registro</router-link>
+      <router-link to="/Login" v-if="!existeUsuario" class="btn btn-outline-success me-2">Login</router-link>
+      <button @click="cerrarSesion" v-if="existeUsuario" class="btn btn-outline-danger me-2">Cerrar sesion</button>
     </nav>
     <router-view/>
   </div>
 </template>
+
+<script>
+import { mapActions, mapGetters } from 'vuex';
+export default {
+  methods:{
+    ...mapActions(['cerrarSesion'])
+  },
+  computed:{
+    ...mapGetters(['existeUsuario'])
+  }
+}
+</script>
 
 <style>
 #app {

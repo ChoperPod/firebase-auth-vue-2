@@ -1,5 +1,10 @@
 # auth-vue2-v2
 
+## Project in Netlify
+```
+https://firebase-auth-vue-2.netlify.app/
+```
+
 ## Project setup
 ```
 npm install

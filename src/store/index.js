@@ -14,7 +14,8 @@ export default new Vuex.Store({
     tarea: {
       nombre: '',
       id: ''
-    }
+    },
+    carga: false
   },
   getters: {
   },
@@ -31,11 +32,15 @@ export default new Vuex.Store({
     },
     setTarea(state, payload) {
       state.tarea = payload
+    },
+    cargaFirebase(state, payload) {
+      state.carga = payload
     }
   },
   actions: {
     //acciones para las tareas de los usuarios
     getTareas({ commit, state }) {
+      commit('cargaFirebase', true)
       const tareas = []
       // console.log(state.usuario.email)
       db.collection(state.usuario.email).get()
@@ -48,7 +53,12 @@ export default new Vuex.Store({
             tareas.push(tarea)
           })
           commit('setTareas', tareas)
+          setTimeout(() => {
+            commit('cargaFirebase', false)
+          }, 1000)
+
         })
+
     },
     getTarea({ commit, state }, idTarea) {
       db.collection(state.usuario.email).doc(idTarea).get()
@@ -70,12 +80,14 @@ export default new Vuex.Store({
         })
     },
     agregarTarea({ commit, state }, nombreTarea) {
+      commit('cargaFirebase', true)
       db.collection(state.usuario.email).add({
         nombre: nombreTarea
       })
         .then(doc => {
           console.log('Tarea agregada con id: ' + doc.id)
           router.push('/')
+          commit('cargaFirebase', false)
         })
     },
     eliminarTarea({ commit, dispatch, state }, idTarea) {

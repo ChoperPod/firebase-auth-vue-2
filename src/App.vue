@@ -5,6 +5,9 @@
       <router-link to="/Registro" v-if="!existeUsuario" class="btn btn-outline-success me-2">Registro</router-link>
       <router-link to="/Login" v-if="!existeUsuario" class="btn btn-outline-success me-2">Login</router-link>
       <button @click="cerrarSesion" v-if="existeUsuario" class="btn btn-outline-danger me-2">Cerrar sesion</button>
+      <router-link to="/cards" class="btn btn-outline-warning me-2">Cards</router-link>
+      <router-link to="/grid" class="btn btn-outline-warning me-2">Grid</router-link>
+      <router-link to="/form" class="btn btn-outline-warning me-2">Form</router-link>
     </nav>
     <router-view/>
   </div>

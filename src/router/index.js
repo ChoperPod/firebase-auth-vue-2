@@ -32,7 +32,27 @@ const routes = [
     name: 'Agregar',
     component: () => import(/* webpackChunkName: "Registro" */ '../views/AgregarView.vue'),
     meta: { requiresAuth: true }
-  }
+  },
+  {
+    path: '/cards',
+    name: 'cards',
+    component: () => import(/* webpackChunkName: "Registro" */ '../views/cards.vue')
+  },
+  {
+    path: '/form',
+    name: 'form',
+    component: () => import(/* webpackChunkName: "Registro" */ '../views/form.vue')
+  },
+  {
+    path: '/grid',
+    name: 'grid',
+    component: () => import(/* webpackChunkName: "Registro" */ '../views/grid.vue')
+  },
+  // {
+  //   path: '/validaciones',
+  //   name: 'validaciones',
+  //   component: () => import(/* webpackChunkName: "Registro" */ '../views/validaciones.vue')
+  // },
 ]
 
 const router = new VueRouter({

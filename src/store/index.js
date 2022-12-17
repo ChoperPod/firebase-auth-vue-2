@@ -15,9 +15,8 @@ export default new Vuex.Store({
       nombre: '',
       id: ''
     },
+    texto: '',
     carga: false
-  },
-  getters: {
   },
   mutations: {
     setUsuario(state, payload) {
@@ -38,6 +37,12 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    // accion de busqueda de tareas
+    buscador({ commit, state }, payload) {
+      console.log(payload)
+      state.texto = payload.toLowerCase()
+    },
+
     //acciones para las tareas de los usuarios
     getTareas({ commit, state }) {
       commit('cargaFirebase', true)
@@ -115,7 +120,7 @@ export default new Vuex.Store({
           }).catch(error => console.log(error))
         }).catch(error => {
           console.log(error)
-          commit('setError', error)
+          commit('setError', error.code)
         })
     },
     loginUsuario({ commit }, usuario) {
@@ -130,7 +135,7 @@ export default new Vuex.Store({
           router.push('/')
         }).catch(error => {
           console.log(error)
-          commit('setError', error)
+          commit('setError', error.code)
         })
     },
     cerrarSesion({ commit }) {
@@ -153,6 +158,16 @@ export default new Vuex.Store({
       } else {
         return true
       }
+    },
+    arrayFiltrado(state) {
+      let arregloFiltrado = []
+      for (let tarea of state.tareas) {
+        let nombre = tarea.nombre.toLowerCase();
+        if (nombre.indexOf(state.texto) >= 0) {
+          arregloFiltrado.push(tarea)
+        }
+      }
+      return arregloFiltrado;
     }
   },
   modules: {
